@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable{
 	
-	public static int WIDTH = 800, HEIGHT = 600;
+	public static int WIDTH = 1600, HEIGHT = 1000;
 	public String title = "Geometry Dash Redux";
 	
 	private Thread thread;
@@ -37,8 +37,8 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		new Window(WIDTH, HEIGHT, title, this);
 		
-		start();
 		init();
+		start();
 	}
 	
 	private void init() {

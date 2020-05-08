@@ -21,12 +21,34 @@ public class Level {
 		this.generate(100,40);
 	}
 	public void generate(int width, int height) {
+		tileMap = new ArrayList<Integer>();
 		this.width = width;
 		this.height = height;
 		
-		for (int col = 0; col < width; col++) {
-			for (int row = 0; row < height; row++) {
-				tileMap.add(0);
+		int gapWidth = 5;
+		int platformWidth = 10;
+
+		boolean drawGap = false;
+
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				if (row < 10){
+					tileMap.add(0);
+				}else{
+					int index = col % (gapWidth + platformWidth); // a value between 0 - 14
+
+					if (index > platformWidth){ // returns true if 11 - 14
+						drawGap = true;
+					}else{
+						drawGap = false;
+					}
+
+					if (drawGap){
+						tileMap.add(0);
+					}else{
+						tileMap.add(1);
+					}
+				}
 			}
 		}
 	}
@@ -47,7 +69,10 @@ public class Level {
 				int x = col*TILE_SIZE;
 				int y = row*TILE_SIZE;
 				
-				Color color = tile == 1 ? Color.green : Color.blue;
+				Color color = Color.blue;
+				if (tile == 1){
+					color = Color.green;
+				}
 				
 				g.setColor(color);
 				g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
