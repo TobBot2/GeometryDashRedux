@@ -8,6 +8,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static int WIDTH = 1600, HEIGHT = 1000;
 	public String title = "Geometry Dash Redux";
+	public float[] cam = new float[2];
 	
 	private Thread thread;
 	private boolean isRunning = false;
@@ -86,6 +87,9 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick() {
 		player.tick();
+		cam = player.getPosition();
+		cam[0] -= WIDTH/2 - 16; // subtracts WIDTH/2 and HEIGHT/2 to center player
+		cam[1] -= HEIGHT/2 - 16; // subtracts 16 becaue width and height of player is 32
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -97,6 +101,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g.setColor(Color.green);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+
+		g.translate(-(int)cam[0], -(int)cam[1]);
 		
 		world.draw(g);
 		
