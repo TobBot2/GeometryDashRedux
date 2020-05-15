@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Level {
 	ArrayList<Integer> tileMap;
@@ -25,31 +26,14 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		
-		int gapWidth = 5;
-		int platformWidth = 10;
-
-		boolean drawGap = false;
-
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				if (row < 10){
-					tileMap.add(0);
-				}else{
-					int index = col % (gapWidth + platformWidth); // a value between 0 - 14
-
-					if (index > platformWidth){ // returns true if 11 - 14
-						drawGap = true;
-					}else{
-						drawGap = false;
-					}
-
-					if (drawGap){
-						tileMap.add(0);
-					}else{
-						tileMap.add(1);
-					}
-				}
+				tileMap.add(0);
 			}
+		}
+		int numOfGenerations = 10;
+		for (int i = 0; i < numOfGenerations; i++){
+			generatePlatforms();
 		}
 	}
 	public int getTile(int col,int row){ // returns value of tileMap of index
@@ -60,6 +44,16 @@ public class Level {
 			return -1;
 		}
 		return tileMap.get(index);
+	}
+	public void setTile(int col, int row, int tile){
+		int index =  row*width + col;
+		
+		if (index > tileMap.size()) {
+			System.err.println("Level.setTile("+col+','+row+','+tile+"); Index out of range");
+			return;
+		}
+		tileMap.set(index, tile);
+		
 	}
 	public void draw(Graphics g) {
 		for (int col = 0; col < width; col++) {
@@ -72,6 +66,8 @@ public class Level {
 				Color color = Color.blue;
 				if (tile == 1){
 					color = Color.green;
+				}else if (tile == 2){
+					color = Color.black;
 				}
 				
 				g.setColor(color);
@@ -79,5 +75,35 @@ public class Level {
 			}
 		}
 		
+	}
+	public void generatePlatforms(){
+		int gapMinWidth = 5;
+		int gapMaxWidth = 10;
+		int platformMinWidth = 3;
+		int platformMaxWidth = 7;
+		int platformMinHeight = 10;
+		int platformMaxHeight = 20;
+		Random randGenerate = new Random(); // sets seed
+		int col = 0;
+		while (col < width) {
+			int platformWidth = randGenerate.nextInt(platformMaxWidth - platformMinWidth) + platformMinWidth;
+			int platformHeight = randGenerate.nextInt(platformMaxHeight - platformMinHeight) + platformMinHeight;
+
+			int startCol = col;
+			int endCol = startCol + platformWidth;
+			for (int row = height - 1; row >= (height - platformHeight); row--) {
+				col = startCol;
+				while (col < endCol && col < width) {
+					int tile = 1;
+					if (row == (height - platformHeight)){
+						tile = 2;
+					}
+					setTile(col, row, tile);
+					col++;
+				}
+			}
+			int gapWidth = randGenerate.nextInt(gapMaxWidth - gapMinWidth) + gapMinWidth;
+			col += gapWidth;
+		}
 	}
 }

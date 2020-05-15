@@ -99,8 +99,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.green);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.clearRect(0, 0, WIDTH, HEIGHT);
 
 		g.translate(-(int)cam[0], -(int)cam[1]);
 		

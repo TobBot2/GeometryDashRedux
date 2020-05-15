@@ -15,6 +15,12 @@ public class World {
 	public void draw(Graphics g) {
 		level.draw(g);
 	}
+	public int getWidth(){
+		return level.width * TILE_SIZE;
+	}
+	public int getHeight(){
+		return level.height * TILE_SIZE;
+	}
 	
 	
 }
