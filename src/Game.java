@@ -63,8 +63,8 @@ public class Game extends Canvas implements Runnable{
 		// TODO Auto-generated method stub
 		this.requestFocus();
 		long lastTime = System.nanoTime(); // time since start of program in nanoseconds
-		double amountOfTicks = 60.0;
-		double ns = 1000000000 / amountOfTicks;
+		double amountOfupdates = 60.0;
+		double ns = 1000000000 / amountOfupdates;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;
@@ -72,8 +72,9 @@ public class Game extends Canvas implements Runnable{
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
+			float dt = 0.16f;
 			while (delta >= 1) {
-				tick();
+				update(dt);
 				delta--; 			
 				} 			
 			render(); 			
@@ -85,8 +86,8 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
-	private void tick() {
-		player.tick();
+	private void update(float dt) {
+		player.update(dt, world);
 		cam = player.getPosition();
 		cam[0] -= WIDTH/2 - 16; // subtracts WIDTH/2 and HEIGHT/2 to center player
 		cam[1] -= HEIGHT/2 - 16; // subtracts 16 becaue width and height of player is 32

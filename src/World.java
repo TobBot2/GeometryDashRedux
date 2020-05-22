@@ -6,6 +6,7 @@ public class World {
 	
 	Level level;
 	
+	protected float gravity = 1;
 	public World() {
 		level = new Level(TILE_SIZE);
 	}
