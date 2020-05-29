@@ -77,7 +77,7 @@ public class Game extends Canvas implements Runnable{
 				update(dt);
 				delta--; 			
 				} 			
-			render(); 			
+			draw(); 			
 			frames++; 			 			
 			if (System.currentTimeMillis() - timer > 1000) { 
 				timer += 1000; 				
@@ -92,7 +92,7 @@ public class Game extends Canvas implements Runnable{
 		cam[0] -= WIDTH/2 - 16; // subtracts WIDTH/2 and HEIGHT/2 to center player
 		cam[1] -= HEIGHT/2 - 16; // subtracts 16 becaue width and height of player is 32
 	}
-	private void render() {
+	private void draw() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
 			this.createBufferStrategy(3);
@@ -106,7 +106,7 @@ public class Game extends Canvas implements Runnable{
 		
 		world.draw(g);
 		
-		player.render(g);
+		player.draw(g);
 		
 		bs.show();
 		g.dispose();

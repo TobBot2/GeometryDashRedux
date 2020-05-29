@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Level {
-	ArrayList<Integer> tileMap;
+	ArrayList<Tile> tileMap;
 	int width;
 	int height;
 	
@@ -14,7 +14,6 @@ public class Level {
 		this.TILE_SIZE = tile_size;
 	}
 	public void load(ArrayList<Integer> map, int width, int height) {
-		tileMap = map;
 		this.width = width;
 		this.height = height;
 	}
@@ -22,13 +21,15 @@ public class Level {
 		this.generate(100,40);
 	}
 	public void generate(int width, int height) {
-		tileMap = new ArrayList<Integer>();
+		tileMap = new ArrayList<Tile>();
 		this.width = width;
 		this.height = height;
 		
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				tileMap.add(0);
+				float x = col * TILE_SIZE;
+				float y = row * TILE_SIZE;
+				tileMap.add(new Tile(x,y,TILE_SIZE,TILE_SIZE, 0));
 			}
 		}
 		int numOfGenerations = 10;
@@ -36,16 +37,16 @@ public class Level {
 			generatePlatforms();
 		}
 	}
-	public int getTile(int col,int row){ // returns value of tileMap of index
+	public Tile getTile(int col,int row){ // returns value of tileMap of index
 		int index =  row*width + col;
 		
 		if (index > tileMap.size()) {
 			System.err.println("Level.getTile(); Index out of range");
-			return -1;
+			return null;
 		}
 		return tileMap.get(index);
 	}
-	public void setTile(int col, int row, int tile){
+	public void setTile(int col, int row, Tile tile){
 		int index =  row*width + col;
 		
 		if (index > tileMap.size()) {
@@ -58,20 +59,9 @@ public class Level {
 	public void draw(Graphics g) {
 		for (int col = 0; col < width; col++) {
 			for (int row = 0; row < height; row++) {
-				int tile = this.getTile(col, row);
+				Tile tile = this.getTile(col, row);
 				
-				int x = col*TILE_SIZE;
-				int y = row*TILE_SIZE;
-				
-				Color color = Color.blue;
-				if (tile == 1){
-					color = Color.green;
-				}else if (tile == 2){
-					color = Color.black;
-				}
-				
-				g.setColor(color);
-				g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+				tile.draw(g);
 			}
 		}
 		
@@ -94,11 +84,13 @@ public class Level {
 			for (int row = height - 1; row >= (height - platformHeight); row--) {
 				col = startCol;
 				while (col < endCol && col < width) {
-					int tile = 1;
+					Tile tile = getTile(col, row);
+					
+					int type = 1;
 					if (row == (height - platformHeight)){
-						tile = 2;
+						type = 2;
 					}
-					setTile(col, row, tile);
+					tile.setType(type);
 					col++;
 				}
 			}

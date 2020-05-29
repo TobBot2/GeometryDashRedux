@@ -2,15 +2,17 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public abstract class GameObject {
-	protected float x, y;
+	protected float x, y, width, height;
 	protected float velX, velY;
 	protected ID id;
 
 	protected ArrayList<Trait> traits;
 	
-	public GameObject(float x, float y) {
+	public GameObject(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 		this.id = ID.GameObject;
 
 		this.traits = new ArrayList<Trait>();
@@ -32,7 +34,7 @@ public abstract class GameObject {
 			t.update(dt,world);
 		}
 	}
-	public abstract void render(Graphics g);
+	public abstract void draw(Graphics g);
 
 	public float getX() {
 		return x;
@@ -74,5 +76,34 @@ public abstract class GameObject {
 		this.id = id;
 	}
 	
+	public float getLeft() {
+		return x - width/2;
+	}
+	public void setLeft(float val){
+		x = (val + width/2);
+	}
 	
+	public float getRight() {
+		return x + width / 2;
+	}
+
+	public void setRight(float val) {
+		x = (val - width / 2);
+	}
+
+	public float getTop() {
+		return y - height / 2;
+	}
+
+	public void setTop(float val) {
+		y = (val + height / 2);
+	}
+	
+	public float getBottom() {
+		return y + height / 2;
+	}
+
+	public void setBottom(float val) {
+		y = (val - height / 2);
+	}
 }
