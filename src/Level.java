@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,6 +8,8 @@ public class Level {
 	int height;
 	
 	final int TILE_SIZE;
+
+	TileCollider tileCollider = new TileCollider();
 	
 	public Level(int tile_size) {
 		this.TILE_SIZE = tile_size;
@@ -27,8 +28,8 @@ public class Level {
 		
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				float x = col * TILE_SIZE;
-				float y = row * TILE_SIZE;
+				float x = col * TILE_SIZE + 0.5f;
+				float y = row * TILE_SIZE + 0.5f;
 				tileMap.add(new Tile(x,y,TILE_SIZE,TILE_SIZE, 0));
 			}
 		}
@@ -57,14 +58,9 @@ public class Level {
 		
 	}
 	public void draw(Graphics g) {
-		for (int col = 0; col < width; col++) {
-			for (int row = 0; row < height; row++) {
-				Tile tile = this.getTile(col, row);
-				
-				tile.draw(g);
-			}
+		for (Tile tile : tileMap){
+			tile.draw(g);
 		}
-		
 	}
 	public void generatePlatforms(){
 		int gapMinWidth = 5;

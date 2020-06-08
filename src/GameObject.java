@@ -6,6 +6,8 @@ public abstract class GameObject {
 	protected float velX, velY;
 	protected ID id;
 
+	protected Collider bounds;
+
 	protected ArrayList<Trait> traits;
 	
 	public GameObject(float x, float y, float width, float height) {
@@ -15,6 +17,7 @@ public abstract class GameObject {
 		this.height = height;
 		this.id = ID.GameObject;
 
+		this.bounds = new Collider(0f, 0f, 1f, 1f, this);
 		this.traits = new ArrayList<Trait>();
 	}
 	public void addTrait(Trait t){

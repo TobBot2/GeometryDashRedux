@@ -5,8 +5,7 @@ public class Move extends Trait{
     }
     @Override
     public void update(float dt, World world){
-        parent.x += parent.velX;
-        parent.y += parent.velY;
+        
     }
     @Override
     public void obstructs(GameObject match){

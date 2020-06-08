@@ -6,7 +6,7 @@ public class World {
 	
 	Level level;
 	
-	protected float gravity = 1;
+	protected float gravity = 0.1f;
 	public World() {
 		level = new Level(TILE_SIZE);
 	}
@@ -22,6 +22,4 @@ public class World {
 	public int getHeight(){
 		return level.height * TILE_SIZE;
 	}
-	
-	
 }

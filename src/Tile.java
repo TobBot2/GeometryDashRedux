@@ -2,11 +2,9 @@ import java.awt.Graphics;
 import java.awt.Color;
 public class Tile extends GameObject{
     private Color color;
-    private boolean isSolid;
-    private Collider bounds;
+    private boolean isSolid = false;
     public Tile(float x, float y, float width, float height, int type){
         super(x,y,width,height);
-        bounds = new Collider(0f,0f,1f,1f, this);
         setType(type);
     }
     @Override
@@ -32,5 +30,8 @@ public class Tile extends GameObject{
                 System.out.println("Invalid type for Tile");
                 break;
         }
+    }
+    public boolean getSolid(){
+        return isSolid;
     }
 }

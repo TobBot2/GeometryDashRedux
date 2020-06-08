@@ -4,6 +4,9 @@ public class Physics extends Trait{
     }
     @Override
     public void update(float dt, World world){
+        parent.y += parent.velY;
+        parent.x += parent.velX;
+        world.level.tileCollider.checkY(parent, world.level);
         parent.velY += world.gravity;
     }
     @Override

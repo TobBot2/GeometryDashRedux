@@ -1,8 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 public class Player extends GameObject{
-	private Collider bounds;
-
 	public Player(float x, float y, KeyInput keyInput) {
 		super(x, y, 32, 32);
 		this.id = ID.Player;
@@ -11,7 +9,7 @@ public class Player extends GameObject{
 		this.addTrait(new Move(this));
 		this.addTrait(new Physics(this));
 
-		bounds = new Collider(0f,0f,1f,1f, this);
+		
 	}
 
 	@Override

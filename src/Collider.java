@@ -36,11 +36,12 @@ public class Collider{
     }
 
     public boolean overlaps(Collider candidate){
-        return !(
+        boolean result = !(
             getLeft() > candidate.getRight() || 
-            getRight() > candidate.getLeft() ||
+            getRight() < candidate.getLeft() ||
             getTop() > candidate.getBottom() ||
             getBottom() < candidate.getTop()
         );
+        return result;
     }
 }
