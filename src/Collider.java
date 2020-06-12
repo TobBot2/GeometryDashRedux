@@ -17,7 +17,7 @@ public class Collider{
         parent.setLeft(val - x * parent.width);
     }
     public float getRight(){
-        return parent.getLeft() + width * parent.width;
+        return this.getLeft() + width * parent.width;
     }
     public void setRight(float val){
         parent.setLeft(val - width * parent.width);
@@ -29,19 +29,22 @@ public class Collider{
         parent.setTop(val - y * parent.height);
     }
     public float getBottom(){
-        return parent.getTop() + height * parent.height;
+        return this.getTop() + height * parent.height;
     }
     public void setBottom(float val){
         parent.setTop(val - height * parent.height);
     }
 
     public boolean overlaps(Collider candidate){
-        boolean result = !(
+        boolean result = false;
+        if (!(
             getLeft() > candidate.getRight() || 
             getRight() < candidate.getLeft() ||
             getTop() > candidate.getBottom() ||
-            getBottom() < candidate.getTop()
-        );
+            getBottom() < candidate.getTop())
+        ){
+            result = true;
+        }
         return result;
     }
 }

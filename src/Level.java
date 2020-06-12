@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,8 +29,8 @@ public class Level {
 		
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				float x = col * TILE_SIZE + 0.5f;
-				float y = row * TILE_SIZE + 0.5f;
+				float x = col * TILE_SIZE + TILE_SIZE * .5f;
+				float y = row * TILE_SIZE + TILE_SIZE * .5f;
 				tileMap.add(new Tile(x,y,TILE_SIZE,TILE_SIZE, 0));
 			}
 		}
@@ -37,6 +38,11 @@ public class Level {
 		for (int i = 0; i < numOfGenerations; i++){
 			generatePlatforms();
 		}
+
+		Tile t1 = getTile(0,2);
+		Tile t2 = getTile(1,2);
+		t1.setType(2);
+		t2.setType(2);
 	}
 	public Tile getTile(int col,int row){ // returns value of tileMap of index
 		int index =  row*width + col;
@@ -60,6 +66,9 @@ public class Level {
 	public void draw(Graphics g) {
 		for (Tile tile : tileMap){
 			tile.draw(g);
+
+			g.setColor(Color.GRAY); // GRID
+			g.drawRect((int) tile.getLeft(), (int) tile.getTop(), (int) tile.width, (int) tile.height);
 		}
 	}
 	public void generatePlatforms(){

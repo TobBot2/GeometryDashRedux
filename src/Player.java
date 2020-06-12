@@ -19,7 +19,7 @@ public class Player extends GameObject{
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.orange);
-		g.fillRect((int)x, (int)y, 32, 32);
+		g.fillRect((int) getLeft(), (int) getTop(), 32, 32);
 	}
 	public float[] getPosition(){
 		float[] arr = {x,y};

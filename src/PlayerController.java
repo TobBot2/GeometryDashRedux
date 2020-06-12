@@ -37,7 +37,6 @@ public class PlayerController extends Trait{
             parent.y = 0;
         }
     }
-
     @Override
     public void obstructs(GameObject match) {
         // TODO Auto-generated method stub

@@ -10,7 +10,7 @@ public class Tile extends GameObject{
     @Override
     public void draw(Graphics g){
         g.setColor(color);
-        g.fillRect((int)x, (int)y,(int)width, (int)height);
+        g.fillRect((int) getLeft(), (int) getTop(),(int) width, (int) height);
     }
     public void setType(int type){
         switch (type) {
